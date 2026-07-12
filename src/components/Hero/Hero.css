@@ -23,7 +23,6 @@
       rgba(255, 122, 196, 0.24) 100%
     );
   mix-blend-mode: screen;
-  opacity: 0.95;
 }
 
 .hero h1 {
