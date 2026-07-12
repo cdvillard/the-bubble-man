@@ -1,5 +1,29 @@
 .hero {
   padding: 25vh 8vw 8vh;
+  position: relative;
+  overflow: clip;
+  isolation: isolate;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.16), transparent 26%),
+    linear-gradient(
+      115deg,
+      rgba(255, 92, 140, 0.32) 0%,
+      rgba(255, 160, 72, 0.24) 18%,
+      rgba(255, 229, 92, 0.18) 34%,
+      rgba(109, 255, 177, 0.18) 50%,
+      rgba(104, 214, 255, 0.2) 66%,
+      rgba(140, 122, 255, 0.26) 82%,
+      rgba(255, 122, 196, 0.24) 100%
+    );
+  mix-blend-mode: screen;
+  opacity: 0.95;
 }
 
 .hero h1 {
