@@ -16,3 +16,20 @@ gsap.from("#subtitle", {
   delay: 0.4,
   duration: 0.8,
 });
+
+gsap.from(".hero-kicker, .hero-actions", {
+  opacity: 0,
+  y: 18,
+  delay: 0.25,
+  duration: 0.7,
+  stagger: 0.1,
+});
+
+gsap.from("#portrait-card", {
+  opacity: 0,
+  y: 32,
+  scale: 0.96,
+  delay: 0.35,
+  duration: 0.9,
+  ease: "power2.out",
+});

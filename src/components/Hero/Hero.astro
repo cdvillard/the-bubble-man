@@ -3,22 +3,31 @@ import './Hero.css';
 ---
 
 <header class="hero">
-	<h1 id="title">Astro &times; GSAP</h1>
-	<p id="subtitle">Every plugin registered. Scroll, drag, move.</p>
-	<div class="hero-actions">
-		<a
-			class="hero-deploy"
-			href="https://webflow.com/dashboard/cloud/deploy?repo=https://github.com/webflow-examples/astro-gsap"
-		>
-			<img src="https://webflow.com/img/deploy-dark.svg" alt="Deploy to Webflow" />
-		</a>
-		<a class="hero-cheatsheet" href="https://gsap.com/cheatsheet/">
-			GSAP Cheatsheet <span aria-hidden="true">👀</span>
-		</a>
-		<a class="hero-cheatsheet" href="https://docs.astro.build/">
-			Astro Docs <span aria-hidden="true">🚀</span>
-		</a>
+	<div class="hero-copy">
+		<p class="hero-kicker">Stylized portrait study</p>
+		<h1 id="title">The Bubble Man</h1>
+		<p id="subtitle">
+			A clean vector portrait focused on the subject alone, with the distracting bubble foreground
+			and park background removed.
+		</p>
+		<div class="hero-actions">
+			<a class="hero-link hero-link-primary" href="/bubble-man.svg" download>
+				Download SVG
+			</a>
+			<a class="hero-link" href="/bubble-man.svg" target="_blank" rel="noreferrer">
+				Open artwork
+			</a>
+		</div>
 	</div>
+
+	<figure class="hero-portrait" id="portrait-card">
+		<img
+			src="/bubble-man.svg"
+			alt="Stylized portrait of a man in a long dark coat, isolated from the background."
+			width="900"
+			height="1100"
+		/>
+	</figure>
 </header>
 
 <script>

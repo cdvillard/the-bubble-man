@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1100" role="img" aria-labelledby="title desc">
+  <title id="title">Stylized portrait of a man</title>
+  <desc id="desc">A stylized vector portrait of a standing man with dark hair, a beard, and a long coat, isolated from the background.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#111827"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+    <linearGradient id="coat" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#334155"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="skin" x1="40%" y1="0%" x2="60%" y2="100%">
+      <stop offset="0%" stop-color="#f6c3a4"/>
+      <stop offset="100%" stop-color="#de9c7b"/>
+    </linearGradient>
+    <linearGradient id="shirt" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#dbe4f0"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="50%" cy="38%" r="42%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity=".32"/>
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="26" stdDeviation="36" flood-color="#020617" flood-opacity=".45"/>
+    </filter>
+  </defs>
+
+  <rect width="900" height="1100" rx="56" fill="url(#bg)"/>
+  <circle cx="455" cy="390" r="270" fill="url(#halo)"/>
+
+  <g filter="url(#shadow)">
+    <ellipse cx="450" cy="950" rx="190" ry="42" fill="#020617" opacity=".5"/>
+
+    <path d="M354 364c17-72 71-118 142-118s123 45 140 118l16 111c4 27-17 51-44 51H383c-27 0-48-24-44-51z" fill="#1e293b"/>
+    <path d="M377 479h148l48 382c5 38-25 71-63 71H390c-38 0-68-33-63-71z" fill="url(#coat)"/>
+    <path d="M392 471h115l10 171H382z" fill="url(#shirt)"/>
+    <path d="M425 473h52v169h-52z" fill="#d7dee8"/>
+    <path d="M384 516c-55 26-104 86-125 177l52 18c16-60 48-105 95-132z" fill="#1e293b"/>
+    <path d="M522 516c55 26 104 86 125 177l-52 18c-16-60-48-105-95-132z" fill="#1e293b"/>
+    <path d="M381 633l-37 228c-7 41 25 79 67 79h34l-19-307z" fill="#172234"/>
+    <path d="M519 633l37 228c7 41-25 79-67 79h-34l19-307z" fill="#172234"/>
+
+    <path d="M448 212c67 0 128 51 128 144 0 93-56 168-125 168-70 0-126-75-126-168 0-93 56-144 123-144z" fill="url(#skin)"/>
+    <path d="M336 381c-14-86 25-175 112-196 68-16 156 18 189 116-16-28-51-50-86-55-40-7-83 2-116 28-34 27-52 63-60 107z" fill="#111827"/>
+    <path d="M353 409c17 75 62 124 96 124 28 0 50-14 72-42-13 52-44 96-95 96-60 0-104-54-118-134z" fill="#24140f"/>
+    <path d="M521 417c28 0 52 12 74 37-17-47-51-77-96-85 10 16 17 31 22 48z" fill="#111827"/>
+
+    <ellipse cx="399" cy="390" rx="13" ry="10" fill="#111827"/>
+    <ellipse cx="504" cy="390" rx="13" ry="10" fill="#111827"/>
+    <path d="M415 446c22 15 56 15 78 0" fill="none" stroke="#8a4f3d" stroke-linecap="round" stroke-width="10"/>
+    <path d="M448 402l-12 39c9 6 24 6 35 0z" fill="#cc8e70"/>
+    <path d="M370 354c14-19 35-31 59-34" fill="none" stroke="#111827" stroke-linecap="round" stroke-width="12"/>
+    <path d="M474 320c24 3 45 15 59 34" fill="none" stroke="#111827" stroke-linecap="round" stroke-width="12"/>
+
+    <path d="M401 525c13 31 29 46 49 46s35-15 48-46z" fill="#a16207" opacity=".24"/>
+    <path d="M421 639l-21 254h42l18-254z" fill="#0f172a"/>
+    <path d="M483 639l18 254h42l-21-254z" fill="#0f172a"/>
+    <path d="M390 890c0 22-18 40-40 40s-40-18-40-40 18-40 40-40 40 18 40 40z" fill="#0f172a"/>
+    <path d="M590 890c0 22-18 40-40 40s-40-18-40-40 18-40 40-40 40 18 40 40z" fill="#0f172a"/>
+  </g>
+</svg>

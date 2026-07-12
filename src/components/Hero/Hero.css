@@ -1,5 +1,11 @@
 .hero {
-  padding: 25vh 8vw 8vh;
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 8vh 8vw;
+  display: grid;
+  gap: 3rem;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 460px);
+  align-items: center;
 }
 
 .hero h1 {
@@ -8,9 +14,20 @@
   letter-spacing: -0.03em;
 }
 
+.hero-kicker {
+  margin: 0 0 1rem;
+  color: #7dd3fc;
+  font-size: 0.9rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
 #subtitle {
+  margin: 1.25rem 0 0;
   color: #a1a1aa;
   font-size: 1.1rem;
+  line-height: 1.7;
+  max-width: 36rem;
 }
 
 .hero-actions {
@@ -21,28 +38,55 @@
   flex-wrap: wrap;
 }
 
-.hero-deploy {
-  display: inline-block;
-  line-height: 0;
-}
-
-.hero-deploy img {
-  height: 40px;
-  width: auto;
-  display: block;
-}
-
-.hero-cheatsheet {
+.hero-link {
   color: #e4e4e7;
   text-decoration: none;
   font-size: 1rem;
   padding: 0.65rem 1.1rem;
   border: 1px solid #3f3f46;
   border-radius: 999px;
-  transition: border-color 0.2s ease, color 0.2s ease;
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
 }
 
-.hero-cheatsheet:hover {
+.hero-link:hover {
   border-color: #88ce02;
   color: #88ce02;
+}
+
+.hero-link-primary {
+  background: #f4f4f5;
+  border-color: #f4f4f5;
+  color: #020617;
+}
+
+.hero-link-primary:hover {
+  background: #88ce02;
+  color: #020617;
+}
+
+.hero-portrait {
+  margin: 0;
+  padding: 1.25rem;
+  border-radius: 2rem;
+  background: linear-gradient(180deg, rgba(30, 41, 59, 0.9), rgba(2, 6, 23, 0.95));
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  box-shadow: 0 32px 80px rgba(2, 6, 23, 0.45);
+}
+
+.hero-portrait img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 1.5rem;
+}
+
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+    padding-top: 4rem;
+  }
+
+  .hero-portrait {
+    max-width: 30rem;
+  }
 }
