@@ -2,24 +2,14 @@
 import './Hero.css';
 ---
 
-<header class="hero">
-	<h1 id="title">Astro &times; GSAP</h1>
-	<p id="subtitle">Every plugin registered. Scroll, drag, move.</p>
-	<div class="hero-actions">
-		<a
-			class="hero-deploy"
-			href="https://webflow.com/dashboard/cloud/deploy?repo=https://github.com/webflow-examples/astro-gsap"
-		>
-			<img src="https://webflow.com/img/deploy-dark.svg" alt="Deploy to Webflow" />
-		</a>
-		<a class="hero-cheatsheet" href="https://gsap.com/cheatsheet/">
-			GSAP Cheatsheet <span aria-hidden="true">👀</span>
-		</a>
-		<a class="hero-cheatsheet" href="https://docs.astro.build/">
-			Astro Docs <span aria-hidden="true">🚀</span>
-		</a>
+<section class="hero" data-bubble-hero>
+	<div class="hero-canvas" data-bubble-canvas aria-hidden="true"></div>
+	<div class="hero-copy">
+		<h1>Bubble Man</h1>
+		<p>Three.js hero pass with an undulating bubble window over the image.</p>
+		<p class="hero-fallback">WebGL is unavailable in this browser.</p>
 	</div>
-</header>
+</section>
 
 <script>
 	import './Hero.js';

@@ -1,71 +1,65 @@
 .hero {
-  padding: 25vh 8vw 8vh;
   position: relative;
+  height: 100svh;
+  min-height: 100svh;
+  width: 100%;
   overflow: hidden;
+  display: grid;
+  place-items: center;
   isolation: isolate;
+  background: #06070b;
 }
 
-.hero::after {
-  content: "";
+.hero-canvas {
   position: absolute;
   inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.16), transparent 26%),
-    linear-gradient(
-      115deg,
-      rgba(255, 92, 140, 0.32) 0%,
-      rgba(255, 160, 72, 0.24) 18%,
-      rgba(255, 229, 92, 0.18) 34%,
-      rgba(109, 255, 177, 0.18) 50%,
-      rgba(104, 214, 255, 0.2) 66%,
-      rgba(140, 122, 255, 0.26) 82%,
-      rgba(255, 122, 196, 0.24) 100%
-    );
-  mix-blend-mode: screen;
-}
-
-.hero h1 {
-  font-size: clamp(2.5rem, 8vw, 6rem);
-  margin: 0;
-  letter-spacing: -0.03em;
-}
-
-#subtitle {
-  color: #a1a1aa;
-  font-size: 1.1rem;
-}
-
-.hero-actions {
-  display: flex;
-  align-items: center;
-  gap: 1.25rem;
-  margin-top: 2rem;
-  flex-wrap: wrap;
-}
-
-.hero-deploy {
-  display: inline-block;
-  line-height: 0;
-}
-
-.hero-deploy img {
-  height: 40px;
-  width: auto;
+  width: 100%;
+  height: 100%;
   display: block;
 }
 
-.hero-cheatsheet {
-  color: #e4e4e7;
-  text-decoration: none;
-  font-size: 1rem;
-  padding: 0.65rem 1.1rem;
-  border: 1px solid #3f3f46;
-  border-radius: 999px;
-  transition: border-color 0.2s ease, color 0.2s ease;
+.hero-canvas canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
-.hero-cheatsheet:hover {
-  border-color: #88ce02;
-  color: #88ce02;
+.hero-copy {
+  position: relative;
+  z-index: 1;
+  max-width: min(36rem, calc(100% - 2rem));
+  padding: 1.25rem 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 1.5rem;
+  background: rgba(10, 14, 24, 0.28);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
+  text-align: center;
+}
+
+.hero-copy h1 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(2.4rem, 7vw, 5rem);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+}
+
+.hero-copy p {
+  margin: 0;
+  color: rgba(241, 245, 249, 0.78);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.hero-fallback {
+  display: none;
+  margin-top: 0.65rem;
+}
+
+.hero.no-webgl .hero-canvas {
+  display: none;
+}
+
+.hero.no-webgl .hero-fallback {
+  display: block;
 }
