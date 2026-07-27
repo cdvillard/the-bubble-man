@@ -30,14 +30,14 @@ const camera = new THREE.PerspectiveCamera(52, 1, 0.1, 40);
 camera.position.set(0, 0.1, 5.8);
 camera.lookAt(0, 0, 0);
 
-const ambient = new THREE.HemisphereLight(0xc9ddff, 0x182030, 0.6);
+const ambient = new THREE.HemisphereLight(0xc9ddff, 0x182030, 1.2);
 scene.add(ambient);
 
-const keyLight = new THREE.DirectionalLight(0xffffff, 0.7);
+const keyLight = new THREE.DirectionalLight(0xffffff, 1.4);
 keyLight.position.set(2.2, 2.8, 2.5);
 scene.add(keyLight);
 
-const backLight = new THREE.PointLight(0x7bc8ff, 0.9, 10);
+const backLight = new THREE.PointLight(0x7bc8ff, 1.8, 10);
 backLight.position.set(-2.4, -1.4, -2.1);
 scene.add(backLight);
 
@@ -50,6 +50,7 @@ const backgroundMaterial = new THREE.MeshBasicMaterial({
 });
 const backgroundMesh = new THREE.Mesh(backgroundGeometry, backgroundMaterial);
 backgroundMesh.position.z = -8;
+backgroundMesh.visible = false;
 scene.add(backgroundMesh);
 
 const bubbleGroup = new THREE.Group();
@@ -66,7 +67,7 @@ const bubbleGeometry = new THREE.SphereGeometry(1.12, 128, 128);
 const bubbleMaterial = new THREE.MeshPhysicalMaterial({
   color: 0xffffff,
   transparent: true,
-  opacity: 0.5,
+  opacity: 0.72,
   side: THREE.FrontSide,
   roughness: 0.0,
   metalness: 0.0,
@@ -74,29 +75,43 @@ const bubbleMaterial = new THREE.MeshPhysicalMaterial({
   thickness: 0.35,
   ior: 1.03,
   iridescence: 1.0,
-  iridescenceIOR: 1.0,
-  iridescenceThicknessRange: [0, 1200],
+  iridescenceIOR: 1.8,
+  iridescenceThicknessRange: [200, 700],
   clearcoat: 1.0,
   clearcoatRoughness: 0.0,
-  envMapIntensity: 1.35,
+  envMapIntensity: 3.0,
   depthWrite: false,
 });
 
-bubbleMaterial.onBeforeCompile = (shader) => {
-  shader.uniforms.uTime = { value: 0 };
-  shader.vertexShader = `uniform float uTime;\n${shader.vertexShader}`;
-  shader.vertexShader = shader.vertexShader.replace(
-    "#include <begin_vertex>",
-    `#include <begin_vertex>
+const applyBubbleShader = (material) => {
+  material.onBeforeCompile = (shader) => {
+    shader.uniforms.uTime = { value: 0 };
+    shader.vertexShader = `uniform float uTime;\n${shader.vertexShader}`;
+    shader.vertexShader = shader.vertexShader.replace(
+      "#include <begin_vertex>",
+      `#include <begin_vertex>
       float waveA = sin(position.y * 4.6 + uTime * 1.12);
       float waveB = sin(position.x * 6.4 - uTime * 1.38);
       float waveC = sin(position.z * 5.3 + uTime * 0.92);
       float wave = waveA * 0.5 + waveB * 0.32 + waveC * 0.22;
       transformed += normal * (0.065 * wave);
     `
-  );
-  bubbleMaterial.userData.shader = shader;
+    );
+    shader.fragmentShader = shader.fragmentShader.replace(
+      "#include <output_fragment>",
+      `
+    float luma = dot(outgoingLight, vec3(0.2126, 0.7152, 0.0722));
+    outgoingLight = mix(vec3(luma), outgoingLight, 2.4);
+    #include <output_fragment>
+    `
+    );
+    material.userData.shader = shader;
+  };
+
+  material.needsUpdate = true;
 };
+
+applyBubbleShader(bubbleMaterial);
 
 const bubbleMesh = new THREE.Mesh(bubbleGeometry, bubbleMaterial);
 bubbleMesh.renderOrder = 2;
@@ -160,6 +175,7 @@ const updateBackgroundPlane = () => {
   const viewHeight = 2 * Math.tan(fovRadians * 0.5) * distance;
   const viewWidth = viewHeight * camera.aspect;
   backgroundMesh.scale.set(viewWidth, viewHeight, 1);
+  backgroundMesh.visible = Boolean(backgroundTexture);
 
   if (backgroundTexture) {
     updateTextureCover(backgroundTexture, camera.aspect);
@@ -189,26 +205,6 @@ const updateBubbleScale = () => {
     BUBBLE_SHAPE.z * uniformScale
   );
 };
-
-const textureLoader = new THREE.TextureLoader();
-textureLoader.load(
-  "/bubbleman-2.jpg",
-  (texture) => {
-    texture.colorSpace = THREE.SRGBColorSpace;
-    texture.minFilter = THREE.LinearMipmapLinearFilter;
-    texture.magFilter = THREE.LinearFilter;
-    texture.anisotropy = Math.min(renderer.capabilities.getMaxAnisotropy(), 8);
-    texture.needsUpdate = true;
-    backgroundTexture = texture;
-    backgroundMaterial.map = texture;
-    backgroundMaterial.needsUpdate = true;
-    updateBackgroundPlane();
-  },
-  undefined,
-  () => {
-    hero.classList.add("no-webgl");
-  }
-);
 
 const clock = new THREE.Clock();
 let rafId = 0;

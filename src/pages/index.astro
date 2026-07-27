@@ -1,10 +1,10 @@
 ---
-import '../styles/global.css';
-import Hero from '../components/Hero/Hero.astro';
-import Boxes from '../components/Boxes/Boxes.astro';
-import MotionPath from '../components/MotionPath/MotionPath.astro';
-import Physics from '../components/Physics/Physics.astro';
-import ScrollPin from '../components/ScrollPin/ScrollPin.astro';
+import "../styles/global.css";
+import Hero from "../components/Hero/Hero.astro";
+import Boxes from "../components/Boxes/Boxes.astro";
+import MotionPath from "../components/MotionPath/MotionPath.astro";
+import Physics from "../components/Physics/Physics.astro";
+import ScrollPin from "../components/ScrollPin/ScrollPin.astro";
 ---
 
 <html lang="en">
@@ -17,9 +17,49 @@ import ScrollPin from '../components/ScrollPin/ScrollPin.astro';
 	</head>
 	<body>
 		<Hero />
+		<div class="news-clipping">
+			<img src="/bubbleman.jpg" alt="" />
+		</div>
 		<Boxes />
 		<MotionPath />
 		<Physics />
 		<ScrollPin />
 	</body>
 </html>
+
+<script>
+	import { gsap } from "../lib/gsap.js";
+	import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+	gsap.registerPlugin(ScrollTrigger);
+
+	gsap.fromTo(
+		".news-clipping",
+		{ y: "-100vh" },
+		{
+			y: 0,
+			ease: "none",
+			scrollTrigger: {
+				trigger: ".hero",
+				start: "top top",
+				end: "bottom top",
+				scrub: true,
+			},
+		},
+	);
+
+	gsap.fromTo(
+		".news-clipping img",
+		{ scale: 1.85, transformOrigin: "70% 75%" },
+		{
+			scale: 1,
+			ease: "none",
+			scrollTrigger: {
+				trigger: ".hero",
+				start: "top top",
+				end: "bottom top",
+				scrub: true,
+			},
+		},
+	);
+</script>
