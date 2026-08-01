@@ -20,11 +20,11 @@ const pageTitle = "Bubble Trail";
 				overflow: hidden;
 				touch-action: none;
 				cursor: grab;
-				background:
-					radial-gradient(circle at 15% 10%, rgba(56, 189, 248, 0.16), transparent 42%),
-					radial-gradient(circle at 80% 15%, rgba(244, 114, 182, 0.16), transparent 38%),
-					radial-gradient(circle at 70% 80%, rgba(129, 140, 248, 0.14), transparent 50%),
-					linear-gradient(180deg, #080914 0%, #03040a 55%, #020207 100%);
+				background:#fff;
+				transform: translate3d(var(--trail-offset-x, 0px), var(--trail-offset-y, 0px), 0)
+					scale(var(--trail-scale, 1));
+				transform-origin: center center;
+				will-change: transform;
 			}
 
 			.trail-page.is-dragging {
@@ -282,9 +282,14 @@ const pageTitle = "Bubble Trail";
 					if (!bubble.popStarted) {
 						if (age < POP_DELAY) {
 							const progress = Math.min(Math.max(age / POP_DELAY, 0), 1);
-							bubble.group.position.y = progress * 0.14;
-							bubble.group.position.x =
-								Math.sin(elapsed * 0.55 + bubble.phase) * 0.01;
+							const driftWave = Math.sin(elapsed * 0.9 + bubble.phase) * 0.012;
+							const liftWave = Math.sin(elapsed * 1.35 + bubble.phase * 1.25) * 0.008;
+							const swayWave = Math.cos(elapsed * 0.7 + bubble.phase * 0.9) * 0.006;
+							bubble.group.position.y = progress * 0.14 + liftWave;
+							bubble.group.position.x = driftWave + swayWave;
+							bubble.group.position.z = Math.sin(elapsed * 1.1 + bubble.phase) * 0.004;
+							bubble.group.rotation.x = Math.sin(elapsed * 0.8 + bubble.phase) * 0.06;
+							bubble.group.rotation.z = Math.cos(elapsed * 0.65 + bubble.phase) * 0.05;
 						} else {
 							bubble.popStarted = true;
 							bubble.popElapsed = 0;
@@ -495,6 +500,12 @@ const pageTitle = "Bubble Trail";
 				const dt = Math.min((now - last) / 1000, 1 / 24);
 				last = now;
 				updateTrail(dt);
+				const driftX = Math.sin(elapsed * 0.55) * 0.8;
+				const driftY = Math.cos(elapsed * 0.45 + 0.35) * 0.6;
+				const driftScale = 1 + Math.sin(elapsed * 0.8 + 0.2) * 0.003;
+				root.style.setProperty("--trail-offset-x", `${driftX}px`);
+				root.style.setProperty("--trail-offset-y", `${driftY}px`);
+				root.style.setProperty("--trail-scale", driftScale.toFixed(4));
 				renderer.render(scene, camera);
 				rafId = requestAnimationFrame(tick);
 			};

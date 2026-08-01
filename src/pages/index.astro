@@ -1,10 +1,6 @@
 ---
 import "../styles/global.css";
 import Hero from "../components/Hero/Hero.astro";
-import Boxes from "../components/Boxes/Boxes.astro";
-import MotionPath from "../components/MotionPath/MotionPath.astro";
-import Physics from "../components/Physics/Physics.astro";
-import ScrollPin from "../components/ScrollPin/ScrollPin.astro";
 ---
 
 <html lang="en">
@@ -13,53 +9,861 @@ import ScrollPin from "../components/ScrollPin/ScrollPin.astro";
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro + GSAP</title>
+		<title>Alan Pasternak: The Miami Bubble Man</title>
 	</head>
 	<body>
 		<Hero />
 		<div class="news-clipping">
 			<img src="/bubbleman.jpg" alt="" />
 		</div>
-		<Boxes />
-		<MotionPath />
-		<Physics />
-		<ScrollPin />
+		<svg
+			class="bucket-figure"
+			data-bucket-figure
+			viewBox="0 0 220 260"
+			role="img"
+			aria-label="Bucket full of water"
+		>
+			<defs>
+				<linearGradient id="bucket-metal" x1="0%" x2="100%" y1="0%" y2="100%">
+					<stop offset="0%" stop-color="#c8d2db"></stop>
+					<stop offset="55%" stop-color="#93a3b2"></stop>
+					<stop offset="100%" stop-color="#607181"></stop>
+				</linearGradient>
+				<linearGradient id="bucket-water" x1="0%" x2="0%" y1="0%" y2="100%">
+					<stop offset="0%" stop-color="#9fe8ff"></stop>
+					<stop offset="100%" stop-color="#2d9fc3"></stop>
+				</linearGradient>
+			</defs>
+			<g transform="translate(14 4)">
+				<path
+					class="bucket-stick"
+					data-bucket-stick
+					d="M168 24 L150 148"
+					fill="none"
+					stroke="#9a6c39"
+					stroke-linecap="round"
+					stroke-width="14"></path>
+				<path
+					d="M44 86 C62 30 156 30 174 86"
+					fill="none"
+					stroke="#8694a2"
+					stroke-width="10"></path>
+				<path
+					d="M36 84 H182 L168 204 C166 224 149 240 128 240 H90 C69 240 52 224 50 204 Z"
+					fill="url(#bucket-metal)"
+					stroke="#586776"
+					stroke-width="6"
+					stroke-linejoin="round"></path>
+			</g>
+		</svg>
+		<svg
+			class="wand-figure"
+			data-wand-figure
+			viewBox="0 0 200 200"
+			aria-hidden="true"
+		>
+			<defs>
+				<linearGradient id="wand-stick" x1="0%" x2="100%" y1="0%" y2="0%">
+					<stop offset="0%" stop-color="#9e6a36"></stop>
+					<stop offset="100%" stop-color="#6f4720"></stop>
+				</linearGradient>
+				<radialGradient id="wand-film" cx="50%" cy="42%" r="75%">
+					<stop offset="0%" stop-color="rgba(255,255,255,0.55)"></stop>
+					<stop offset="100%" stop-color="rgba(170,230,255,0.1)"></stop>
+				</radialGradient>
+			</defs>
+			<g transform="translate(12 10)">
+				<path
+					d="M148 156 L106 54"
+					fill="none"
+					stroke="url(#wand-stick)"
+					stroke-linecap="round"
+					stroke-width="11"></path>
+				<ellipse
+					cx="83"
+					cy="52"
+					rx="48"
+					ry="34"
+					fill="none"
+					stroke="#f2d8a7"
+					stroke-width="7"></ellipse>
+				<ellipse
+					cx="83"
+					cy="52"
+					rx="41"
+					ry="28"
+					fill="url(#wand-film)"
+					opacity="0.8"></ellipse>
+				<path
+					d="M49 49 C69 39 99 38 118 46"
+					fill="none"
+					stroke="#ffffff"
+					stroke-linecap="round"
+					stroke-width="4"
+					opacity="0.7"></path>
+			</g>
+		</svg>
+		<div class="bubble-trail" data-trail-root aria-hidden="true">
+			<canvas class="trail-canvas" data-trail-canvas></canvas>
+		</div>
+		<main class="story" data-story>
+			<section>
+				<h2>Some fabric, some PVC, some soap</h2>
+				<p>
+					I don't recall when I first encountered Alan, or when I first knew his
+					name, but he was always the "Bubble Man" to my children. We met him at
+					the weekly Pinecrest Farmers Market. In a world growing more tied to
+					their feeds and deviecs, he's a reminder of what whimsy you can make
+					with some basic things. Of what joy can look like when we're not
+					bombarding ourselves as we do today.
+				</p>
+			</section>
+			<section>
+				<p>
+					I first recall meeting him when my first child was a toddler. I'd
+					taken to her to the market and she desperately wanted to go see the
+					Bubble Man, because he would always let the kids play with his
+					demonstration wand. It always felt easy to make them smile, especially
+					at her age then.
+				</p>
+				<p>
+					That was in 2014. Almost every week, we'd visit that market and
+					whenever he was there, we'd stop and say hi.
+				</p>
+			</section>
+			<section>
+				<p>
+					Unfortunately we had to move away, and it would be five years before
+					we could take another trip back to that market. We weren't sure what
+					to expect, but, after doing it for more than thirty years, there he
+					was. Still waving his wand, making bubbles float and people smile. I
+					teared up when my kids went rushing up to him, excited to say hello,
+					thrilled to make bubbles with him.
+				</p>
+			</section>
+			<section>
+				<p>
+					This website is for him, and the joy he gives everyone. You can learn
+					more about him at <a href="https://www.miamibubbleman.com"
+						>https://www.miamibubbleman.com</a
+					>.
+				</p>
+			</section>
+		</main>
 	</body>
 </html>
 
 <script>
 	import { gsap } from "../lib/gsap.js";
 	import { ScrollTrigger } from "gsap/ScrollTrigger";
+	import * as THREE from "three";
+	import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 
 	gsap.registerPlugin(ScrollTrigger);
 
-	gsap.fromTo(
-		".news-clipping",
-		{ y: "-100vh" },
+	const newsClipping = document.querySelector(".news-clipping");
+	const story = document.querySelector("[data-story]");
+	const bubbleCanvas = document.querySelector("[data-bubble-canvas]");
+	const bucketFigure = document.querySelector("[data-bucket-figure]");
+	const bucketStick = document.querySelector("[data-bucket-stick]");
+	const wandFigure = document.querySelector("[data-wand-figure]");
+	const trailRoot = document.querySelector("[data-trail-root]");
+	const trailCanvas = document.querySelector("[data-trail-canvas]");
+
+	if (
+		!(newsClipping instanceof HTMLElement) ||
+		!(story instanceof HTMLElement) ||
+		!(bubbleCanvas instanceof HTMLElement) ||
+		!(bucketFigure instanceof SVGElement) ||
+		!(bucketStick instanceof SVGPathElement) ||
+		!(wandFigure instanceof SVGElement) ||
+		!(trailRoot instanceof HTMLElement) ||
+		!(trailCanvas instanceof HTMLCanvasElement)
+	) {
+		throw new Error(
+			"Expected hero, clipping, story, bucket, wand, and trail elements were not found.",
+		);
+	}
+
+	type DetachedBubble = {
+		group: THREE.Group;
+		mesh: THREE.Mesh;
+		material: THREE.MeshPhysicalMaterial;
+		headCap: THREE.Mesh;
+		tailCap: THREE.Mesh;
+		phase: number;
+		releasedAt: number;
+		popStarted: boolean;
+		popElapsed: number;
+		popMesh: THREE.InstancedMesh;
+		popMaterial: THREE.MeshBasicMaterial;
+		popPositions: THREE.Vector3[];
+		popVelocities: THREE.Vector3[];
+	};
+
+	gsap.set(bucketFigure, { xPercent: 130, autoAlpha: 0 });
+	gsap.set(bucketStick, { opacity: 1, visibility: "visible" });
+	gsap.set(wandFigure, { autoAlpha: 0, scale: 0.88 });
+
+	const trailScene = new THREE.Scene();
+	const trailCamera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 20);
+	trailCamera.position.z = 4;
+	const trailRenderer = new THREE.WebGLRenderer({
+		canvas: trailCanvas,
+		antialias: true,
+		alpha: true,
+		powerPreference: "high-performance",
+	});
+	trailRenderer.outputColorSpace = THREE.SRGBColorSpace;
+	trailRenderer.setClearColor(0x000000, 0);
+	trailRenderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+
+	const pmremGenerator = new THREE.PMREMGenerator(trailRenderer);
+	const environmentTarget = pmremGenerator.fromScene(
+		new RoomEnvironment(),
+		0.05,
+	);
+	trailScene.environment = environmentTarget.texture;
+
+	const ambient = new THREE.HemisphereLight(0xc9ddff, 0x161c2f, 1.1);
+	trailScene.add(ambient);
+
+	const keyLight = new THREE.DirectionalLight(0xffffff, 1.35);
+	keyLight.position.set(2.1, 2.6, 2.3);
+	trailScene.add(keyLight);
+
+	const TRAIL_SEGMENTS = 36;
+	const POP_PARTICLE_COUNT = 28;
+	const TUBE_RADIAL_SEGMENTS = 20;
+	const MAX_BUBBLES = 10;
+	const POP_DELAY = 4;
+	const POP_DURATION = 0.9;
+	const UNDULATION_AMPLITUDE = 0.012;
+	const wandAnchor = { x: 95 / 200, y: 62 / 200 };
+	const trailPoints = Array.from(
+		{ length: TRAIL_SEGMENTS },
+		() => new THREE.Vector3(0, 0, 0),
+	);
+	const worldPointer = new THREE.Vector2(0, 0);
+	const worldTarget = new THREE.Vector2(0, 0);
+	const pointer = new THREE.Vector2(0.5, 0.5);
+	const target = new THREE.Vector2(0.5, 0.5);
+	const detachedBubbles: DetachedBubble[] = [];
+
+	let isTrailDragging = false;
+	let trailOpacity = 0;
+	let pointerVelocity = 0;
+	let trailRafId = 0;
+	let trailElapsed = 0;
+	let worldWidth = 2;
+	let worldHeight = 2;
+	let worldDepthStep = 0.008;
+
+	const bubbleMaterial = new THREE.MeshPhysicalMaterial({
+		color: 0xffffff,
+		transparent: true,
+		opacity: 0.72,
+		roughness: 0.0,
+		metalness: 0.0,
+		transmission: 1.0,
+		thickness: 0.28,
+		ior: 1.03,
+		iridescence: 1.0,
+		iridescenceIOR: 1.8,
+		iridescenceThicknessRange: [180, 680],
+		clearcoat: 1.0,
+		clearcoatRoughness: 0.0,
+		envMapIntensity: 2.75,
+		depthWrite: false,
+	});
+
+	bubbleMaterial.onBeforeCompile = (shader) => {
+		shader.uniforms.uTime = { value: 0 };
+		shader.uniforms.uTrailMix = { value: 0 };
+		shader.vertexShader = `uniform float uTime;\nuniform float uTrailMix;\n${shader.vertexShader}`;
+		shader.vertexShader = shader.vertexShader.replace(
+			"#include <begin_vertex>",
+			`#include <begin_vertex>
+			float microWaveA = sin(position.y * 3.6 + uTime * 0.7 + uTrailMix * 1.1);
+			float microWaveB = sin(position.x * 4.2 - uTime * 0.6 + uTrailMix * 0.9);
+			float microWave = microWaveA * 0.6 + microWaveB * 0.4;
+			transformed += normal * (0.012 * microWave);
+		`,
+		);
+		bubbleMaterial.userData.shader = shader;
+	};
+
+	let trailGeometry = new THREE.TubeGeometry(
+		new THREE.LineCurve3(
+			new THREE.Vector3(0, 0, 0),
+			new THREE.Vector3(0.001, 0, 0),
+		),
+		4,
+		0.001,
+		TUBE_RADIAL_SEGMENTS,
+		false,
+	);
+	const trailMesh = new THREE.Mesh(trailGeometry, bubbleMaterial);
+	trailMesh.visible = false;
+	trailScene.add(trailMesh);
+
+	const endCapGeometry = new THREE.SphereGeometry(
+		1,
+		TUBE_RADIAL_SEGMENTS,
+		TUBE_RADIAL_SEGMENTS,
+	);
+	const trailHeadCap = new THREE.Mesh(endCapGeometry, bubbleMaterial);
+	const trailTailCap = new THREE.Mesh(endCapGeometry, bubbleMaterial);
+	trailHeadCap.visible = false;
+	trailTailCap.visible = false;
+	trailScene.add(trailHeadCap);
+	trailScene.add(trailTailCap);
+
+	const popParticleGeometry = new THREE.SphereGeometry(1, 10, 10);
+	const popParticleMaterial = new THREE.MeshBasicMaterial({
+		color: 0xd6f2ff,
+		transparent: true,
+		opacity: 0,
+		blending: THREE.AdditiveBlending,
+		depthWrite: false,
+	});
+	const popDummy = new THREE.Object3D();
+
+	const clamp01 = (value: number) => Math.min(Math.max(value, 0), 1);
+
+	const getUndulationOffset = (
+		point: THREE.Vector3,
+		time: number,
+		trailMix: number,
+	) => {
+		const microWaveA = Math.sin(point.y * 3.6 + time * 0.7 + trailMix * 1.1);
+		const microWaveB = Math.sin(point.x * 4.2 - time * 0.6 + trailMix * 0.9);
+		const microWave = microWaveA * 0.6 + microWaveB * 0.4;
+		return UNDULATION_AMPLITUDE * microWave;
+	};
+
+	const updateTrailTargetFromPoint = (clientX: number, clientY: number) => {
+		const rect = trailRoot.getBoundingClientRect();
+		target.x = clamp01((clientX - rect.left) / Math.max(rect.width, 1));
+		target.y = clamp01((clientY - rect.top) / Math.max(rect.height, 1));
+		worldTarget.x = (target.x - 0.5) * worldWidth;
+		worldTarget.y = -(target.y - 0.5) * worldHeight;
+	};
+
+	const getWandAnchorPoint = () => {
+		const rect = wandFigure.getBoundingClientRect();
+		return {
+			clientX: rect.left + rect.width * wandAnchor.x,
+			clientY: rect.top + rect.height * wandAnchor.y,
+		};
+	};
+
+	const syncTrailToWand = () => {
+		const { clientX, clientY } = getWandAnchorPoint();
+		updateTrailTargetFromPoint(clientX, clientY);
+	};
+
+	const disposeDetachedBubble = (bubble: DetachedBubble) => {
+		trailScene.remove(bubble.group);
+		trailScene.remove(bubble.popMesh);
+		bubble.mesh.geometry.dispose();
+		bubble.material.dispose();
+		bubble.popMaterial.dispose();
+	};
+
+	const spawnDetachedBubble = () => {
+		if (!trailMesh.visible) {
+			return;
+		}
+
+		const material = bubbleMaterial.clone();
+		material.opacity = bubbleMaterial.opacity;
+		const mesh = new THREE.Mesh(trailGeometry.clone(), material);
+
+		const headCap = new THREE.Mesh(endCapGeometry, material);
+		headCap.position.copy(trailHeadCap.position);
+		headCap.scale.copy(trailHeadCap.scale);
+
+		const tailCap = new THREE.Mesh(endCapGeometry, material);
+		tailCap.position.copy(trailTailCap.position);
+		tailCap.scale.copy(trailTailCap.scale);
+
+		const group = new THREE.Group();
+		group.add(mesh);
+		group.add(headCap);
+		group.add(tailCap);
+		trailScene.add(group);
+
+		const popMaterial = popParticleMaterial.clone();
+		const popMesh = new THREE.InstancedMesh(
+			popParticleGeometry,
+			popMaterial,
+			POP_PARTICLE_COUNT,
+		);
+		popMesh.visible = false;
+		popMesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+		trailScene.add(popMesh);
+
+		const popPositions = Array.from(
+			{ length: POP_PARTICLE_COUNT },
+			() => new THREE.Vector3(0, 0, 0),
+		);
+		const popVelocities = Array.from(
+			{ length: POP_PARTICLE_COUNT },
+			() => new THREE.Vector3(0, 0, 0),
+		);
+
+		detachedBubbles.push({
+			group,
+			mesh,
+			material,
+			headCap,
+			tailCap,
+			phase: Math.random() * Math.PI * 2,
+			releasedAt: trailElapsed,
+			popStarted: false,
+			popElapsed: 0,
+			popMesh,
+			popMaterial,
+			popPositions,
+			popVelocities,
+		});
+
+		if (detachedBubbles.length > MAX_BUBBLES) {
+			const oldest = detachedBubbles.shift();
+			if (oldest) {
+				disposeDetachedBubble(oldest);
+			}
+		}
+	};
+
+	const updateDetachedBubbles = (dt: number) => {
+		for (let i = detachedBubbles.length - 1; i >= 0; i -= 1) {
+			const bubble = detachedBubbles[i];
+			const age = trailElapsed - bubble.releasedAt;
+
+			if (!bubble.popStarted) {
+				if (age < POP_DELAY) {
+					const progress = Math.min(Math.max(age / POP_DELAY, 0), 1);
+					const driftWave = Math.sin(trailElapsed * 0.9 + bubble.phase) * 0.012;
+					const liftWave =
+						Math.sin(trailElapsed * 1.35 + bubble.phase * 1.25) * 0.008;
+					const swayWave =
+						Math.cos(trailElapsed * 0.7 + bubble.phase * 0.9) * 0.006;
+					bubble.group.position.y = progress * 0.14 + liftWave;
+					bubble.group.position.x = driftWave + swayWave;
+					bubble.group.position.z =
+						Math.sin(trailElapsed * 1.1 + bubble.phase) * 0.004;
+					bubble.group.rotation.x =
+						Math.sin(trailElapsed * 0.8 + bubble.phase) * 0.06;
+					bubble.group.rotation.z =
+						Math.cos(trailElapsed * 0.65 + bubble.phase) * 0.05;
+				} else {
+					bubble.popStarted = true;
+					bubble.popElapsed = 0;
+					bubble.group.visible = false;
+
+					const center = new THREE.Vector3();
+					bubble.headCap.getWorldPosition(center);
+					for (let p = 0; p < POP_PARTICLE_COUNT; p += 1) {
+						const angle = Math.random() * Math.PI * 2;
+						const spread = 0.23 + Math.random() * 0.32;
+						const lift = (Math.random() - 0.5) * 0.18;
+						bubble.popPositions[p].copy(center);
+						bubble.popVelocities[p].set(
+							Math.cos(angle) * spread,
+							Math.sin(angle) * spread,
+							lift,
+						);
+						const scale = 0.024 + Math.random() * 0.03;
+						popDummy.position.copy(bubble.popPositions[p]);
+						popDummy.scale.setScalar(scale);
+						popDummy.updateMatrix();
+						bubble.popMesh.setMatrixAt(p, popDummy.matrix);
+					}
+
+					bubble.popMesh.visible = true;
+					bubble.popMesh.instanceMatrix.needsUpdate = true;
+					bubble.popMaterial.opacity = 0.95;
+				}
+			}
+
+			if (bubble.popStarted) {
+				bubble.popElapsed += dt;
+				const life = Math.min(bubble.popElapsed / POP_DURATION, 1);
+				const damping = Math.exp(-dt * 2.7);
+
+				for (let p = 0; p < POP_PARTICLE_COUNT; p += 1) {
+					const velocity = bubble.popVelocities[p];
+					velocity.multiplyScalar(damping);
+					velocity.y += dt * 0.035;
+					bubble.popPositions[p].addScaledVector(velocity, dt);
+					const scale =
+						(0.038 - life * 0.02) *
+						(0.75 + Math.sin(p * 2.1 + trailElapsed * 6.2) * 0.12);
+					popDummy.position.copy(bubble.popPositions[p]);
+					popDummy.scale.setScalar(Math.max(scale, 0.004));
+					popDummy.updateMatrix();
+					bubble.popMesh.setMatrixAt(p, popDummy.matrix);
+				}
+
+				bubble.popMesh.instanceMatrix.needsUpdate = true;
+				bubble.popMaterial.opacity = 0.95 * (1 - life);
+
+				if (life >= 1) {
+					disposeDetachedBubble(bubble);
+					detachedBubbles.splice(i, 1);
+				}
+			}
+		}
+	};
+
+	const updateContinuousBody = (opacity: number) => {
+		if (opacity < 0.01) {
+			trailMesh.visible = false;
+			trailHeadCap.visible = false;
+			trailTailCap.visible = false;
+			return;
+		}
+
+		const points: THREE.Vector3[] = [];
+		for (let i = 0; i < TRAIL_SEGMENTS; i += 1) {
+			points.push(
+				new THREE.Vector3(
+					trailPoints[i].x,
+					trailPoints[i].y,
+					-0.06 - i * 0.007,
+				),
+			);
+		}
+
+		if (
+			points.length >= 2 &&
+			points[0].distanceTo(points[points.length - 1]) < 0.001
+		) {
+			points[points.length - 1].x += 0.001;
+		}
+
+		const curve = new THREE.CatmullRomCurve3(
+			points,
+			false,
+			"centripetal",
+			0.45,
+		);
+		const tubularSegments = TRAIL_SEGMENTS * 5;
+		const radius =
+			Math.max((0.03 + pointerVelocity * 0.022) * opacity, 0.004) * 2;
+
+		const nextGeometry = new THREE.TubeGeometry(
+			curve,
+			tubularSegments,
+			radius,
+			TUBE_RADIAL_SEGMENTS,
+			false,
+		);
+		trailMesh.geometry.dispose();
+		trailMesh.geometry = nextGeometry;
+		trailGeometry = nextGeometry;
+		trailMesh.visible = true;
+		trailHeadCap.visible = true;
+		trailTailCap.visible = true;
+		trailHeadCap.position.copy(points[0]);
+		trailTailCap.position.copy(points[points.length - 1]);
+
+		const trailMix = pointerVelocity * trailOpacity;
+		const headScale = Math.max(
+			radius + getUndulationOffset(points[0], trailElapsed, trailMix),
+			0.002,
+		);
+		const tailScale = Math.max(
+			radius +
+				getUndulationOffset(points[points.length - 1], trailElapsed, trailMix),
+			0.002,
+		);
+		trailHeadCap.scale.setScalar(headScale);
+		trailTailCap.scale.setScalar(tailScale);
+		bubbleMaterial.opacity = 0.72 * opacity;
+	};
+
+	const resizeTrail = () => {
+		const width = Math.max(1, trailRoot.clientWidth);
+		const height = Math.max(1, trailRoot.clientHeight);
+		const aspect = width / height;
+		trailRenderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+		trailRenderer.setSize(width, height, false);
+		trailCamera.left = -aspect;
+		trailCamera.right = aspect;
+		trailCamera.top = 1;
+		trailCamera.bottom = -1;
+		trailCamera.updateProjectionMatrix();
+		worldWidth = trailCamera.right - trailCamera.left;
+		worldHeight = trailCamera.top - trailCamera.bottom;
+		worldDepthStep = worldHeight / (TRAIL_SEGMENTS * 22);
+	};
+
+	const updateTrail = (dt: number) => {
+		trailElapsed += dt;
+		const follow = 1 - Math.exp(-dt * 15);
+		const fade = 1 - Math.exp(-dt * 14);
+		const previousX = pointer.x;
+		const previousY = pointer.y;
+		pointer.x += (target.x - pointer.x) * follow;
+		pointer.y += (target.y - pointer.y) * follow;
+
+		const dx = pointer.x - previousX;
+		const dy = pointer.y - previousY;
+		const speed = Math.min(Math.hypot(dx, dy) * 420, 1);
+		const velocityTarget = isTrailDragging ? speed : 0;
+		pointerVelocity +=
+			(velocityTarget - pointerVelocity) * (1 - Math.exp(-dt * 10));
+		const opacityTarget = isTrailDragging ? 1 : 0;
+		trailOpacity += (opacityTarget - trailOpacity) * fade;
+
+		if (isTrailDragging) {
+			worldPointer.x +=
+				(worldTarget.x - worldPointer.x) * (1 - Math.exp(-dt * 18));
+			worldPointer.y +=
+				(worldTarget.y - worldPointer.y) * (1 - Math.exp(-dt * 18));
+
+			trailPoints[0].x = worldPointer.x;
+			trailPoints[0].y = worldPointer.y;
+
+			for (let i = 1; i < TRAIL_SEGMENTS; i += 1) {
+				const lead = trailPoints[i - 1];
+				const segment = trailPoints[i];
+				const lag = 1 - Math.exp(-dt * (16 - i * 0.22));
+				segment.x += (lead.x - segment.x) * lag;
+				segment.y += (lead.y - segment.y) * lag;
+			}
+		}
+
+		updateContinuousBody(trailOpacity);
+		updateDetachedBubbles(dt);
+
+		const shader = bubbleMaterial.userData.shader;
+		if (shader?.uniforms?.uTime && shader?.uniforms?.uTrailMix) {
+			shader.uniforms.uTime.value = trailElapsed;
+			shader.uniforms.uTrailMix.value = pointerVelocity * trailOpacity;
+		}
+	};
+
+	let lastTick = performance.now();
+	const tickTrail = (now: number) => {
+		const dt = Math.min((now - lastTick) / 1000, 1 / 24);
+		lastTick = now;
+		updateTrail(dt);
+		trailRenderer.render(trailScene, trailCamera);
+		trailRafId = requestAnimationFrame(tickTrail);
+	};
+
+	const startBubbleTrail = () => {
+		isTrailDragging = true;
+		trailOpacity = Math.max(trailOpacity, 0.1);
+		pointerVelocity = 0;
+		syncTrailToWand();
+		worldPointer.copy(worldTarget);
+		for (let i = 0; i < TRAIL_SEGMENTS; i += 1) {
+			trailPoints[i].set(
+				worldPointer.x,
+				worldPointer.y,
+				-0.06 - i * worldDepthStep,
+			);
+		}
+	};
+
+	const stopBubbleTrail = () => {
+		if (!isTrailDragging) {
+			return;
+		}
+
+		spawnDetachedBubble();
+		isTrailDragging = false;
+		trailOpacity = 0;
+		trailMesh.visible = false;
+		trailHeadCap.visible = false;
+		trailTailCap.visible = false;
+	};
+
+	const holdDelayMs = 240;
+	const dragOffset = { x: 20, y: 148 };
+	let holdTimer = 0;
+	let activePointerId = -1;
+	let isDraggingWand = false;
+
+	const clearHoldTimer = () => {
+		window.clearTimeout(holdTimer);
+		holdTimer = 0;
+	};
+
+	const moveWand = (clientX: number, clientY: number) => {
+		gsap.set(wandFigure, {
+			x: clientX - dragOffset.x,
+			y: clientY - dragOffset.y,
+		});
+		syncTrailToWand();
+	};
+
+	const stopWandDrag = () => {
+		if (!isDraggingWand) {
+			clearHoldTimer();
+			return;
+		}
+
+		isDraggingWand = false;
+		activePointerId = -1;
+		bucketFigure.dataset.dragging = "false";
+		document.body.classList.remove("is-dragging-wand");
+		stopBubbleTrail();
+		gsap.set(bucketStick, { opacity: 1, visibility: "visible" });
+		gsap.set(wandFigure, { autoAlpha: 0, scale: 0.88 });
+	};
+
+	const startWandDrag = (event: PointerEvent) => {
+		isDraggingWand = true;
+		bucketFigure.dataset.dragging = "true";
+		document.body.classList.add("is-dragging-wand");
+		moveWand(event.clientX, event.clientY);
+		gsap.set(bucketStick, { opacity: 0, visibility: "hidden" });
+		gsap.set(wandFigure, { autoAlpha: 1, scale: 1 });
+		startBubbleTrail();
+	};
+
+	const onBucketPointerDown = (event: PointerEvent) => {
+		if (event.button !== 0 || activePointerId !== -1) {
+			return;
+		}
+
+		activePointerId = event.pointerId;
+		clearHoldTimer();
+		holdTimer = window.setTimeout(() => {
+			startWandDrag(event);
+		}, holdDelayMs);
+	};
+
+	const onGlobalPointerMove = (event: PointerEvent) => {
+		if (event.pointerId !== activePointerId || !isDraggingWand) {
+			return;
+		}
+
+		moveWand(event.clientX, event.clientY);
+	};
+
+	const onGlobalPointerUp = (event: PointerEvent) => {
+		if (event.pointerId !== activePointerId) {
+			return;
+		}
+
+		clearHoldTimer();
+		stopWandDrag();
+	};
+
+	const onBucketPointerLeave = () => {
+		if (!isDraggingWand) {
+			clearHoldTimer();
+			activePointerId = -1;
+		}
+	};
+
+	bucketFigure.addEventListener("pointerdown", onBucketPointerDown);
+	bucketFigure.addEventListener("pointerleave", onBucketPointerLeave);
+	window.addEventListener("pointermove", onGlobalPointerMove);
+	window.addEventListener("pointerup", onGlobalPointerUp);
+	window.addEventListener("pointercancel", onGlobalPointerUp);
+	window.addEventListener("resize", resizeTrail, { passive: true });
+
+	const cleanup = () => {
+		cancelAnimationFrame(trailRafId);
+		bucketFigure.removeEventListener("pointerdown", onBucketPointerDown);
+		bucketFigure.removeEventListener("pointerleave", onBucketPointerLeave);
+		window.removeEventListener("pointermove", onGlobalPointerMove);
+		window.removeEventListener("pointerup", onGlobalPointerUp);
+		window.removeEventListener("pointercancel", onGlobalPointerUp);
+		window.removeEventListener("resize", resizeTrail);
+		window.removeEventListener("pagehide", cleanup);
+		for (const bubble of detachedBubbles) {
+			disposeDetachedBubble(bubble);
+		}
+		detachedBubbles.length = 0;
+		trailGeometry.dispose();
+		endCapGeometry.dispose();
+		popParticleGeometry.dispose();
+		popParticleMaterial.dispose();
+		bubbleMaterial.dispose();
+		environmentTarget.texture.dispose();
+		pmremGenerator.dispose();
+		trailRenderer.dispose();
+	};
+
+	window.addEventListener("pagehide", cleanup, { once: true });
+	resizeTrail();
+	trailRafId = requestAnimationFrame(tickTrail);
+
+	const scrollTimeline = gsap.timeline({
+		scrollTrigger: {
+			trigger: ".hero",
+			start: "top top",
+			end: "bottom top",
+			scrub: true,
+			invalidateOnRefresh: true,
+		},
+	});
+
+	scrollTimeline.fromTo(
+		newsClipping,
+		{
+			y: "-100vh",
+			width: () => `${window.innerWidth}px`,
+		},
 		{
 			y: 0,
+			width: () => `${story.getBoundingClientRect().width}px`,
 			ease: "none",
-			scrollTrigger: {
-				trigger: ".hero",
-				start: "top top",
-				end: "bottom top",
-				scrub: true,
-			},
 		},
+		0,
 	);
 
-	gsap.fromTo(
+	scrollTimeline.fromTo(
 		".news-clipping img",
 		{ scale: 1.85, transformOrigin: "70% 75%" },
 		{
 			scale: 1,
 			ease: "none",
-			scrollTrigger: {
-				trigger: ".hero",
-				start: "top top",
-				end: "bottom top",
-				scrub: true,
-			},
 		},
+		0,
 	);
+
+	scrollTimeline.fromTo(
+		bubbleCanvas,
+		{ yPercent: 0 },
+		{
+			yPercent: -18,
+			ease: "none",
+		},
+		0,
+	);
+
+	ScrollTrigger.create({
+		trigger: ".hero",
+		start: "bottom top",
+		end: "max",
+		onEnter: () => {
+			gsap.to(bucketFigure, {
+				xPercent: 0,
+				autoAlpha: 1,
+				duration: 0.55,
+				ease: "power3.out",
+				overwrite: "auto",
+			});
+		},
+		onLeaveBack: () => {
+			stopWandDrag();
+			gsap.to(bucketFigure, {
+				xPercent: 130,
+				autoAlpha: 0,
+				duration: 0.35,
+				ease: "power3.in",
+				overwrite: "auto",
+			});
+		},
+	});
 </script>
